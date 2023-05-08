@@ -25,6 +25,10 @@ const argv = yargs(hideBin(process.argv))
     if (isNaN(argv.base)) {
       throw 'La base tiene que ser un número entero';
     }
+
+    if (isNaN(argv.limit)) {
+      throw 'El límite tiene que ser un número entero';
+    }
     return true;
   }).argv;
 
