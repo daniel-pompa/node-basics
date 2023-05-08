@@ -1,17 +1,9 @@
-const fs = require('fs');
+const { createFile } = require('./helpers/multiply.js');
 
 console.clear();
 
-const base = 9;
-let output = '';
+const base = 5;
 
-for (let i = 1; i <= 10; i++) {
-  output += `${base} x ${i} = ${base * i}\n`;
-}
-
-console.log(output);
-
-fs.writeFile(`documents/table-${base}.txt`, output, error => {
-  if (error) throw error;
-  console.log(`tabla-${base}.txt creado`);
-});
+createFile(base)
+  .then(fileName => console.log(fileName, 'creado'))
+  .catch(error => console.log(error));
