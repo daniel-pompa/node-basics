@@ -35,7 +35,24 @@ A source code editor such as [VSCode](https://code.visualstudio.com/), [Sublime 
 In the project directory run the following command:
 
 ```bash
-npm start
+node app
+```
+
+## Usage
+
+To display the help in the project directory run the following command:
+
+```bash
+node app --help
+```
+
+```bash
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -b, --base     Is the number used to create the multiplication table [number] [required] [default: 5]
+  -s, --show     Display the table in console                          [boolean] [default: false]
+  -l, --limit    Is the number up to which the table will be created   [number] [default: 10]
 ```
 
 ## Install nodemon (optional)
@@ -85,6 +102,54 @@ npm run dev
 ```
 
 More information about nodemon is available at the following link [nodemon](https://www.npmjs.com/package/nodemon)
+
+## Installation and configuration of yargs
+
+Yargs helps you build interactive command line tools, by parsing arguments and generating an elegant user interface.
+
+__Installation__
+
+```bash
+npm install yargs
+```
+
+__Configuration for this project__
+
+```js
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+
+const argv = yargs(hideBin(process.argv))
+  .option('b', {
+    alias: 'base',
+    type: 'number',
+    demandOption: true,
+    default: 5, // If not pass the default value of the base will be 5
+    describe: 'Is the number used to create the multiplication table',
+  })
+  .option('s', {
+    alias: 'show',
+    type: 'boolean',
+    default: false,
+    describe: 'Display the table in console',
+  })
+  .option('l', {
+    alias: 'limit',
+    type: 'number',
+    default: 10, // If not pass the default value of the base will be 10
+    describe: 'Is the number up to which the table will be created',
+  })
+  .check((argv, options) => {
+    if (isNaN(argv.base)) {
+      throw 'La base tiene que ser un número entero';
+    }
+    return true;
+  }).argv;
+
+export default argv;
+```
+
+More information about yargs is available at the following link [yargs](https://www.npmjs.com/package/yargs)
 
 ## License
 
